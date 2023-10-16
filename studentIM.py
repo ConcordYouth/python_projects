@@ -1,17 +1,15 @@
 import student
 import functions
-from typing import List
-
-
-students: List[student.Student] = []
 
 
 def Main():
-    michael = student.Student("Michael Mumme", "291961", "michaelmumme@me.com")
-    students.append(michael)
+    print("Welcome to Grade Tracker!")
     while True:
-        print("Welcome to Grade Tracker!")
-        menu = select_prompt(1, 4, "welcome")
+        DisplayMenu()
+        menu = functions.select_prompt(1, 4)
+        if menu == "q":
+            print("Thank You for Using Grade Tracker!")
+            break
         match menu:
             case 1:
                 ManageStudents()
@@ -33,14 +31,21 @@ def Main():
 
 def ManageStudents():
     while True:
-        option = select_prompt(1, 3, "addstudent")
+        print(
+            "What would you like to do? \n 1: Add Students"
+            + "\n 2: Edit Students \n 3: Remove Students"
+        )
+        print("Or type 'q' to quit")
+        option = functions.select_prompt(1, 3)
+        if option is None:
+            break
         match option:
             case 1:
                 functions.add_students()
             case 2:
-                pass
+                functions.edit_students()
             case 3:
-                pass
+                functions.remove_students()
             case _:
                 print("ManageStudent() broken")
 
@@ -57,38 +62,20 @@ def DataAnalytics():
     pass
 
 
-def select_prompt(min, max, menu):
-    number = 0
-    if menu == "welcome":
-        print(
-            "__________________________________________________________"
-            + "_________________________________________________"
-        )
-        print(
-            "| Manage Student Records (1) | Enter and View Grades (2) |"
-            + " Export or Import (3) | View Data Analytics (4) |"
-        )
-        print(
-            "__________________________________________________________"
-            + "_________________________________________________"
-        )
-        print("What would would you like to do? ")
-    elif menu == "addstudent":
-        print(
-            "What would you like to do? \n 1: Add Students"
-            + "\n 2: Edit Students \n 3: Remove Students"
-        )
-    while number > max or number < min:
-        numberstr = input(">")
-        try:
-            number = int(numberstr)
-        except ValueError:
-            print("Please enter a number")
-            continue
-        if number > max or number < min:
-            print("Option not available.")
-        else:
-            return number
+def DisplayMenu():
+    print(
+        "__________________________________________________________"
+        + "_________________________________________________"
+    )
+    print(
+        "| Manage Student Records (1) | Enter and View Grades (2) |"
+        + " Export or Import (3) | View Data Analytics (4) |"
+    )
+    print(
+        "__________________________________________________________"
+        + "_________________________________________________"
+    )
+    print("What would would you like to do? ")
 
 
 if __name__ == "__main__":
