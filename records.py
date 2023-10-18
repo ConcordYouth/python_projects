@@ -14,34 +14,34 @@ def add_students():
         name = ""
         studentID = ""
         email = ""
-        check1 = check2 = check3 = check4 = True
-        while check1:
+        check1 = check2 = check3 = check4 = False
+        while not check1:
             name = input("What is your full name, First and Last? ")
             check1 = checkValue(name)
 
-        while check2:
+        while not check2:
             studentID = input("What is your student ID? ")
             check2 = checkValue(studentID)
 
-        while check3:
+        while not check3:
             email = input("What is your email address? ")
             check3 = checkValue(email)
         print("Please verify that the following details are correct (Y/n): ")
         print(f"Name: {name}")
-        print(f"Student ID {studentID}")
+        print(f"Student ID: {studentID}")
         print(f"Email: {email}")
         check4 = checkValue("skip")
-        if check4:
+        if not check4:
             print("Would you like to reenter? ")
-            return_to_menu = checkValue("skip")
-            if return_to_menu:
+            doItAgain = checkValue("skip")
+            if not doItAgain:
                 adding = False
         else:
             tempStudent = student.Student(name, studentID, email)
             students.append(tempStudent)
             print("Would you like to enter another student? ")
-            return_to_menu = checkValue("skip")
-            if return_to_menu:
+            doItAgain = checkValue("skip")
+            if not doItAgain:
                 adding = False
 
 
@@ -85,7 +85,7 @@ def remove_students():
             print("once completed it CANNOT be undone.")
             displayStudent(response, students[response - 1])
             confirm = checkValue(f"You wish to delete member at index {response}")
-            if not confirm:
+            if confirm:
                 response -= 1
                 students.pop(response)
                 if len(students) == 0:
@@ -108,22 +108,22 @@ def editing(number: int):
     if answer == 1 or answer == 4:
         while True:
             name = input("Enter full name, first and last: ")
-            proceed = checkValue(name)
-            if not proceed:
+            correct = checkValue(name)
+            if correct:
                 break
         students[number].fullname = name
     if answer == 2 or answer == 4:
         while True:
             studentID = input(f"Enter {name}'s student ID: ")
-            proceed = checkValue(studentID)
-            if not proceed:
+            correct = checkValue(studentID)
+            if correct:
                 break
         students[number].studentID = studentID
     if answer == 3 or answer == 4:
         while True:
             email = input(f"Enter {name}'s email: ")
-            proceed = checkValue(email)
-            if not proceed:
+            correct = checkValue(email)
+            if correct:
                 break
         students[number].email = email
 
@@ -137,7 +137,7 @@ def select_prompt(min, max):
         try:
             number = int(numberstr)
         except ValueError:
-            print("Please enter a number")
+            print("Please enter an integer")
             continue
         if number > max or number < min:
             print("Option not available.")
@@ -154,7 +154,7 @@ def checkValue(value):  ## Returns a negative value for someone wanting to conti
     else:
         confirm += input(">")
     confirmation = confirm == "y" or confirm == "yy"
-    return not confirmation
+    return confirmation
 
 
 def displayStudent(index: int, member: student.Student):

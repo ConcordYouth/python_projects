@@ -1,12 +1,12 @@
-import student
-import functions
+import records
+import assignments
 
 
 def Main():
     print("Welcome to Grade Tracker!")
     while True:
         DisplayMenu()
-        menu = functions.select_prompt(1, 4)
+        menu = records.select_prompt(1, 3)
         if menu == "q":
             print("Thank You for Using Grade Tracker!")
             break
@@ -16,17 +16,9 @@ def Main():
             case 2:
                 Grades()
             case 3:
-                Files()
-            case 4:
                 DataAnalytics()
             case _:
                 print("case switch broken")
-
-
-##    michael = student.Student("Michael Mumme", "291961", "michaelmumme@me.com")
-##    michael.add_grade("Exam 1", 82.6)
-##    avg = michael.calculate_average()
-##    print(avg)
 
 
 def ManageStudents():
@@ -36,26 +28,39 @@ def ManageStudents():
             + "\n 2: Edit Students \n 3: Remove Students"
         )
         print("Or type 'q' to quit")
-        option = functions.select_prompt(1, 3)
+        option = records.select_prompt(1, 3)
         if option is None:
             break
         match option:
             case 1:
-                functions.add_students()
+                records.add_students()
             case 2:
-                functions.edit_students()
+                records.edit_students()
             case 3:
-                functions.remove_students()
+                records.remove_students()
             case _:
                 print("ManageStudent() broken")
 
 
 def Grades():
-    pass
-
-
-def Files():
-    pass
+    while True:
+        print(
+            "What would you like to do? \n 1: Enter Grades"
+            + "\n 2: Import Grades \n 3: Export Grades"
+        )
+        print("Or type 'q' to quit")
+        option = records.select_prompt(1, 3)
+        if option is None:
+            break
+        match option:
+            case 1:
+                assignments.enterAssignments()
+            case 2:
+                assignments.importFiles()
+            case 3:
+                assignments.exportToFile()
+            case _:
+                print("Grades() broken")
 
 
 def DataAnalytics():
@@ -65,15 +70,15 @@ def DataAnalytics():
 def DisplayMenu():
     print(
         "__________________________________________________________"
-        + "_________________________________________________"
+        + "___________________________"
     )
     print(
         "| Manage Student Records (1) | Enter and View Grades (2) |"
-        + " Export or Import (3) | View Data Analytics (4) |"
+        + "  View Data Analytics (3) |"
     )
     print(
         "__________________________________________________________"
-        + "_________________________________________________"
+        + "___________________________"
     )
     print("What would would you like to do? ")
 
